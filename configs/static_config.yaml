@@ -72,6 +72,13 @@ components_manager:
                     statement_timeout_ms: 500
 
         testsuite-support: {}
+        
+        component-project:
+
+        handler-project:
+            path: /project
+            method: GET,POST
+            task_processor: main-task-processor
 
         http-client:
             load-enabled: $is-testing

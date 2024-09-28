@@ -6,7 +6,7 @@
 #include <userver/storages/postgres/cluster.hpp>
 #include <userver/utils/assert.hpp>
 
-namespace pg_grpc_service_template {
+namespace project_service {
 
 void Hello::SayHello(handlers::api::HelloServiceBase::SayHelloCall& call,
                      handlers::api::HelloRequest&& request) {
@@ -30,7 +30,7 @@ void Hello::SayHello(handlers::api::HelloServiceBase::SayHelloCall& call,
     name = client_.SayHello(name.substr(5));
   }
   handlers::api::HelloResponse response;
-  response.set_text(pg_grpc_service_template::SayHelloTo(name, user_type));
+  response.set_text(project_service::SayHelloTo(name, user_type));
   call.Finish(response);
 }
 
@@ -55,4 +55,4 @@ void AppendHello(userver::components::ComponentList& component_list) {
   component_list.Append<userver::clients::dns::Component>();
 }
 
-}  // namespace pg_grpc_service_template
+}  // namespace project_service

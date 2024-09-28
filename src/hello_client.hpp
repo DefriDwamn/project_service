@@ -6,7 +6,7 @@
 #include <userver/components/component.hpp>
 #include <userver/ugrpc/client/client_factory_component.hpp>
 
-namespace pg_grpc_service_template {
+namespace project_service {
 
 class HelloClient final : public userver::components::LoggableComponentBase {
  public:
@@ -35,7 +35,7 @@ class HelloClient final : public userver::components::LoggableComponentBase {
 void AppendHelloClient(userver::components::ComponentList& component_list);
 
 
-}  // namespace pg_grpc_service_template
+}  // namespace project_service
 
 template <>
-inline constexpr bool userver::components::kHasValidate<pg_grpc_service_template::HelloClient> = true;
+inline constexpr bool userver::components::kHasValidate<project_service::HelloClient> = true;

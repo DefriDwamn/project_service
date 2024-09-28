@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.12)
-project(pg_grpc_service_template CXX)
+project(project_service CXX)
+
+set(USERVER_FEATURE_GRPC ON CACHE BOOL "" FORCE)
+set(USERVER_FEATURE_POSTGRESQL ON CACHE BOOL "" FORCE)
 
 # Adding userver dependency
 find_package(userver COMPONENTS core grpc postgresql QUIET)
@@ -25,11 +28,16 @@ userver_setup_environment()
 
 
 # Common sources
+include_directories(src)
 add_library(${PROJECT_NAME}_objs OBJECT
     src/hello.hpp
     src/hello.cpp
     src/hello_client.hpp
     src/hello_client.cpp
+    src/handlers/project/handler.cpp
+    src/handlers/task/handler.cpp
+    src/components/project/component.cpp
+    src/components/task/component.cpp
 )
 target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver::postgresql userver::grpc)
 

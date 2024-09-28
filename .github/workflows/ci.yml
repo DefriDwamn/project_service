@@ -67,17 +67,17 @@ jobs:
           - name: Test run after install
             if: matrix.make == 'test-release'
             run: >-
-                ./local_installation/bin/pg_grpc_service_template
-                --config=./local_installation/etc/pg_grpc_service_template/static_config.yaml
-                --config_vars=./local_installation/etc/pg_grpc_service_template/config_vars.yaml
+                ./local_installation/bin/project_service
+                --config=./local_installation/etc/project_service/static_config.yaml
+                --config_vars=./local_installation/etc/project_service/config_vars.yaml
                 &
 
           - name: Check work run service
             if: matrix.make == 'test-release'
             run: |
-                ps aux | grep pg_grpc_service_template | grep config && curl http://localhost:8080/ping -v
+                ps aux | grep project_service | grep config && curl http://localhost:8080/ping -v
 
           - name: Stop all
             if: matrix.make == 'test-release'
             run: |
-                killall pg_grpc_service_template
+                killall project_service

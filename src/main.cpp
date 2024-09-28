@@ -13,7 +13,8 @@
 #include <userver/ugrpc/server/middlewares/log/component.hpp>
 #include <userver/ugrpc/server/server_component.hpp>
 #include <userver/utils/daemon_run.hpp>
-
+#include "components/project/component.hpp"
+#include "handlers/project/handler.hpp"
 #include "hello.hpp"
 #include "hello_client.hpp"
 
@@ -32,10 +33,12 @@ int main(int argc, char* argv[]) {
           .Append<userver::server::handlers::Ping>()
           .Append<userver::components::TestsuiteSupport>()
           .Append<userver::components::HttpClient>()
-          .Append<userver::server::handlers::TestsControl>();
+          .Append<userver::server::handlers::TestsControl>()
+          .Append<components::Project>()
+          .Append<handlers::project_v1_project::Handler>();
 
-  pg_grpc_service_template::AppendHello(component_list);
-  pg_grpc_service_template::AppendHelloClient(component_list);
+  project_service::AppendHello(component_list);
+  project_service::AppendHelloClient(component_list);
 
   return userver::utils::DaemonMain(argc, argv, component_list);
 }
