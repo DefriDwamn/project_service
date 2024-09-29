@@ -15,20 +15,21 @@
 #include <userver/utils/daemon_run.hpp>
 #include "components/project/component.hpp"
 #include "handlers/project/handler.hpp"
-#include "hello.hpp"
-#include "hello_client.hpp"
 
 int main(int argc, char* argv[]) {
   auto component_list =
       userver::components::MinimalServerComponentList()
           .Append<userver::congestion_control::Component>()
           .Append<userver::ugrpc::server::ServerComponent>()
-          .Append<userver::ugrpc::server::middlewares::congestion_control::Component>()
-          .Append<userver::ugrpc::server::middlewares::deadline_propagation::Component>()
+          .Append<userver::ugrpc::server::middlewares::congestion_control::
+                      Component>()
+          .Append<userver::ugrpc::server::middlewares::deadline_propagation::
+                      Component>()
           .Append<userver::ugrpc::server::middlewares::log::Component>()
           .Append<userver::ugrpc::client::CommonComponent>()
           .Append<userver::ugrpc::client::ClientFactoryComponent>()
-          .Append<userver::ugrpc::client::middlewares::deadline_propagation::Component>()
+          .Append<userver::ugrpc::client::middlewares::deadline_propagation::
+                      Component>()
           .Append<userver::ugrpc::client::middlewares::log::Component>()
           .Append<userver::server::handlers::Ping>()
           .Append<userver::components::TestsuiteSupport>()
@@ -36,9 +37,5 @@ int main(int argc, char* argv[]) {
           .Append<userver::server::handlers::TestsControl>()
           .Append<components::Project>()
           .Append<handlers::project_v1_project::Handler>();
-
-  project_service::AppendHello(component_list);
-  project_service::AppendHelloClient(component_list);
-
   return userver::utils::DaemonMain(argc, argv, component_list);
 }

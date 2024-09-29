@@ -4,6 +4,7 @@
 #include <userver/components/component_context.hpp>
 #include <userver/storages/postgres/cluster.hpp>
 #include <userver/storages/postgres/cluster_types.hpp>
+#include <userver/storages/postgres/component.hpp>
 #include <userver/storages/postgres/io/chrono.hpp>
 #include <userver/storages/postgres/io/enum_types.hpp>
 #include <userver/storages/postgres/io/row_types.hpp>
@@ -12,6 +13,7 @@
 #include "exceptions/not_found.hpp"
 #include "models/project.hpp"
 #include "sql/queries.hpp"
+#include "userver/logging/log.hpp"
 
 namespace components {
 Project::Project(const userver::components::ComponentConfig& config,
@@ -19,7 +21,9 @@ Project::Project(const userver::components::ComponentConfig& config,
     : userver::components::LoggableComponentBase(config, context),
       _pg_cluster(
           context.FindComponent<userver::components::Postgres>("postgres-db-1")
-              .GetCluster()) {}
+              .GetCluster()) {
+  //_pg_cluster->Execute(userver::storages::postgres::ClusterHostType::kMaster,);
+}
 
 void Project::create(const dto::Project& project) {
   _pg_cluster->Execute(userver::storages::postgres::ClusterHostType::kMaster,

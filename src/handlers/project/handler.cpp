@@ -11,6 +11,8 @@
 #include "components/project/component.hpp"
 #include "dto/project.hpp"
 #include "exceptions/not_found.hpp"
+#include "userver/formats/parse/to.hpp"
+#include "userver/utils/boost_uuid4.hpp"
 
 namespace handlers::project_v1_project {
 
@@ -25,10 +27,10 @@ userver::formats::json::Value Handler::HandleRequestJsonThrow(
     userver::server::request::RequestContext& context) const {
   switch (request.GetMethod()) {
     case userver::v2_5_rc::server::http::HttpMethod::kPost:
-      createProject(request, request_json);
+      return createProject(request, request_json);
       break;
     case userver::v2_5_rc::server::http::HttpMethod::kGet:
-      takeProject(request, request_json);
+      return takeProject(request, request_json);
       break;
     case userver::v2_5_rc::server::http::HttpMethod::kPut:
       // updateProject(request, request_json);
@@ -36,7 +38,7 @@ userver::formats::json::Value Handler::HandleRequestJsonThrow(
       // deleteProject(request, request_json);
       break;
     default:
-      throw ClientError(ExternalBody{ 
+      throw ClientError(ExternalBody{
           fmt::format("Unsupported method {}", request.GetMethod())});
   }
 }
@@ -60,8 +62,8 @@ userver::formats::json::Value Handler::takeProject(
     const userver::server::http::HttpRequest& request,
     const userver::formats::json::Value& request_json) const {
   try {
-    auto projects =
-        _project.take(request_json["user_id"].As<boost::uuids::uuid>());
+    auto projects = _project.take(
+        userver::utils::BoostUuidFromString(request.GetArg("user_id")));
     return userver::formats::json::ValueBuilder(projects).ExtractValue();
   } catch (const userver::formats::json::MemberMissingException& e) {
     LOG_WARNING() << e.what();
