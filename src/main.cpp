@@ -6,6 +6,7 @@
 #include <userver/testsuite/testsuite_support.hpp>
 #include <userver/ugrpc/client/client_factory_component.hpp>
 #include <userver/ugrpc/client/common_component.hpp>
+#include <userver/clients/dns/component.hpp>
 #include <userver/ugrpc/client/middlewares/deadline_propagation/component.hpp>
 #include <userver/ugrpc/client/middlewares/log/component.hpp>
 #include <userver/ugrpc/server/middlewares/congestion_control/component.hpp>
@@ -36,6 +37,8 @@ int main(int argc, char* argv[]) {
           .Append<userver::components::HttpClient>()
           .Append<userver::server::handlers::TestsControl>()
           .Append<components::Project>()
-          .Append<handlers::project_v1_project::Handler>();
+          .Append<handlers::project_v1_project::Handler>()
+          .Append<userver::components::Postgres>("postgres-db-1")
+          .Append<userver::clients::dns::Component>();
   return userver::utils::DaemonMain(argc, argv, component_list);
 }

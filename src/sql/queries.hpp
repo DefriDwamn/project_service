@@ -19,4 +19,4 @@ const userver::storages::postgres::Query kSelectProjectsByUserId{
     WHERE pu.user_id=$1
 )~",
     userver::storages::postgres::Query::Name{"select_projects_by_user_id"}};
-}  // namespace sql
+} // namespace sql

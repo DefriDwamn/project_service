@@ -22,7 +22,6 @@ Project::Project(const userver::components::ComponentConfig& config,
       _pg_cluster(
           context.FindComponent<userver::components::Postgres>("postgres-db-1")
               .GetCluster()) {
-  //_pg_cluster->Execute(userver::storages::postgres::ClusterHostType::kMaster,);
 }
 
 void Project::create(const dto::Project& project) {
