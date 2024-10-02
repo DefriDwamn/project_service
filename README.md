@@ -1,20 +1,25 @@
-# project_service
+## Build
 
-Template of a C++ service that uses [userver framework](https://github.com/userver-framework/userver) with PostgreSQL and gRPC.
+```bash
+mkdir third_party && cd third_party
+git clone https://github.com/userver-framework/userve
+cd ..
+```
 
+With you distrub get deps(example for ubuntu-24.04):
+```bash
+sudo apt install --allow-downgrades -y $(cat third_party/userver/scripts/docs/en/deps/ubuntu-24.04.md | tr '\n' ' ')
+```
+Than use make cmds from userver to build
 
-## Download and Build
+## Debug
+Run custom debug script
+```bash
+chmod +x start_d.sh
+./start_d
+```
 
-To create your own userver-based service follow the following steps:
-
-1. Press the green "Use this template button" at the top of this github page
-2. Clone the service `git clone your-service-repo && cd your-service-repo`
-3. Give a propper name to your service and replace all the occurences of "project_service" string with that name
-   (could be done via `find . -not -path "./third_party/*" -not -path ".git/*" -not -path './build_*' -type f | xargs sed -i 's/project_service/YOUR_SERVICE_NAME/g'`).
-4. Feel free to tweak, adjust or fully rewrite the source code of your service.
-
-
-## Makefile
+## [FROM USERVER] Makefile
 
 Makefile contains typicaly useful targets for development:
 
@@ -38,10 +43,3 @@ Makefile contains typicaly useful targets for development:
 * `make docker-clean-data` - stop docker containers and clean database data
 
 Edit `Makefile.local` to change the default configuration and build options.
-
-
-## License
-
-The original template is distributed under the [Apache-2.0 License](https://github.com/userver-framework/userver/blob/develop/LICENSE)
-and [CLA](https://github.com/userver-framework/userver/blob/develop/CONTRIBUTING.md). Services based on the template may change
-the license and CLA.
