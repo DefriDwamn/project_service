@@ -2,7 +2,7 @@
 
 ```bash
 mkdir third_party && cd third_party
-git clone https://github.com/userver-framework/userve
+git clone https://github.com/userver-framework/userver
 cd ..
 ```
 
