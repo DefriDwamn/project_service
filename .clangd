@@ -1,6 +1,2 @@
 CompileFlags:
-  CompilationDatabase: "build_release"
-  Add:
-    - "-I/usr/include"
-    - "-Ithird_party/"
-    - "-Ithird_party/userver/postgresql/include"
+  CompilationDatabase: "build_debug"
