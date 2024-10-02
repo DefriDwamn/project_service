@@ -3,11 +3,11 @@ version: "2.3"
 services:
     postgres:
         container_name: service-postgres
-        image: postgres:12
+        image: postgres:16
         environment: &db_env
           POSTGRES_DB: project_service_db_1
           POSTGRES_USER: user
-          POSTGRES_PASSWORD: password
+          POSTGRES_PASSWORD: pass
         ports:
           - 5432
         volumes:

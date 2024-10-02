@@ -30,11 +30,6 @@ components_manager:
         grpc-client-logging:
         grpc-client-deadline-propagation:
 
-        handler-hello:
-
-        hello-client:
-            endpoint: $hello-endpoint
-
         grpc-server:
             port: 8081
             service-defaults:
